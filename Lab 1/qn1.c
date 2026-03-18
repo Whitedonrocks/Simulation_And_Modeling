@@ -5,18 +5,18 @@
 // c) Repeat the experiment for at least five different values of input iterations and tabulate the true value, the experiment's output, and the error percentage for each.
 
 
-/*
- Algorithm:
- 1. Initialize circle_points and square_points, interval to zero
- 2. generate random point 'x' (beteeen 0 and 1)
- 3. generate random point 'y (betweeen 0 and 1)
- 4. calculate d = x^2 + y^2
- 5. if d <= 1, increment circle_point.
- 6. increment interval, increment square point
- 7. if increment < No. of interations, repeat from step 2.
- 8. calculate, pi = 4 * (circle_points / square_points) 
- 9. Display the value
-*/
+
+//  Algorithm:
+//  1. Initialize circle_points and square_points, interval to zero
+//  2. generate random point 'x' (beteeen 0 and 1)
+//  3. generate random point 'y (betweeen 0 and 1)
+//  4. calculate d = x^2 + y^2
+//  5. if d <= 1, increment circle_point.
+//  6. increment interval, increment square point
+//  7. if increment < No. of interations, repeat from step 2.
+//  8. calculate, pi = 4 * (circle_points / square_points) 
+//  9. Display the value
+
 
 #include<stdio.h>
 #include<stdlib.h>
