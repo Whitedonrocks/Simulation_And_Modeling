@@ -16,33 +16,6 @@
 // if D>D alpha, then reject the null hypothesis Ho.
 // else, accept the null hypothesis.
 
-// Step1: Input the how many random numbers (N)
-// Step2:Input N random numbers (floating point numbers) and store then in a array
-//        First Set :  0.44  0.81  0.14  0.05  0.93
-//        Second Set  : 0.24 0.89 0.11 0.61 0.23 0.86 0.41 0.64 0.50 0.65
-// step 3: Sort them in ascending order and store them in another array 
-//         0.05  0.14  0.44  0.81  0.93
-// 	0.11 0.23 0.24 0.41 0.50 0.61 0.64 0.64 0.65 0.86 0.89     
-// step4: Calculate the D+ and D- Values Using formula and store them in seperate arrays
-//         D+= { i/N - R[i]} for i= 1 to N
-//         D-={ R[i]- (i-1)/N} for i=1 to N
-// Step 5: Find the D+max and D-Max  from the D+ and D- Array (use maximum finding algorith)
-//          D+max=0.26, D-MAx=0.21
-// Step 6: Find the value of D using form D+Max and D-Max 
-//           D= max{D+max, D-Max}
-//           D=0.26  (for first set input:0.44  0.81  0.14  0.05  0.93)       
-// Step 7 : Input the tabulated value for N and Level of Significance alpha (Dalpha)
-//           N=5, Alpha=0.05   DAlpha=0.565 
-//           N=10 , Alpha=0.05, Dalpha=0.410
-
-// stpe 8: compare the value of D with Dalpha. 
-// 		If D is less than Dalpha then 
-//                    Print - Null Hypothesis can not be rejected , 
-//                              so numbers are uniformly distributed
-//                 Else
-//                    Print - Null Hypothesis rejected , 
-//                              so numbers are not uniformly distributed
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -123,11 +96,11 @@ int main() {
 
     // Step 8: Decision
     if(D < Dalpha) {
-        printf("\n\nResult: Null Hypothesis cannot be rejected.\n");
-        printf("Numbers are uniformly distributed.\n");
+        printf("\n\nResult: Null Hypothesis[H0] cannot be rejected.\n");
+        printf(" Ri~U[0,1] Numbers are uniformly distributed.\n");
     } else {
-        printf("\n\nResult: Null Hypothesis is rejected.\n");
-        printf("Numbers are NOT uniformly distributed.\n");
+        printf("\n\nResult: Null Hypothesis[H0] is rejected.\n");
+        printf(" Ri~U[0,1] Numbers are NOT uniformly distributed.\n");
     }
 
     return 0;

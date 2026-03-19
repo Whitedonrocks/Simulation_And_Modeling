@@ -44,8 +44,6 @@ int main() {
     }
 
     printf("\nIterations\tTrue PI\t\tEstimated PI\tError (%%)\n");
-    printf("-----------------------------------------------------------\n");
-
     for(i = 0; i < n; i++) {
         printf("%d\t\t%.6lf\t%.6lf\t%.4lf\n",
                iterations[i], trueValueOfPI, pi[i], error[i]);
