@@ -10,97 +10,89 @@
 //         ◦ Server Utilization
 //         ◦ Total Idle Time and percentage
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
- 
-#define NUM_CUSTOMERS 20
- 
+
+#define MAX_CUSTOMERS 20
+
 typedef struct {
-    int interArrival; /* gap between this and previous customer */
-    int arrivalTime;  /* cumulative arrival time                */
-    int serviceTime;  /* time needed for service                */
-    int startTime;    /* when service actually begins           */
-    int endTime;      /* when service ends                      */
-    int waitTime;     /* time spent waiting in queue            */
-    int timeInSystem; /* total time from arrival to departure   */
-    int idleTime;     /* server idle time before this customer  */
+    int iat, at, st, start, ct, wt, tat, idle;
 } Customer;
- 
-/* Returns a random integer in [lo, hi] */
-int randRange(int lo, int hi) {
-    return lo + rand() % (hi - lo + 1);
-}
- 
-int main(void) {
-    srand((unsigned int)time(NULL));
- 
-    Customer c[NUM_CUSTOMERS];
-    int totalWait = 0, totalInSystem = 0, totalService = 0;
-    int totalIdle = 0;
-    int prevEnd = 0; /* end time of the previous customer's service */
- 
-    /* ── Generate and compute all customer data ── */
-    for (int i = 0; i < NUM_CUSTOMERS; i++) {
-        c[i].interArrival = randRange(1, 8);
-        c[i].serviceTime  = randRange(1, 6);
- 
-        c[i].arrivalTime = (i == 0) ? c[i].interArrival
-                                    : c[i - 1].arrivalTime + c[i].interArrival;
- 
-        /* Service begins when server is free or customer arrives, whichever is later */
-        c[i].startTime = (c[i].arrivalTime > prevEnd) ? c[i].arrivalTime : prevEnd;
-        c[i].endTime   = c[i].startTime + c[i].serviceTime;
- 
-        c[i].idleTime     = (c[i].startTime > prevEnd) ? (c[i].startTime - prevEnd) : 0;
-        c[i].waitTime     = c[i].startTime - c[i].arrivalTime;
-        c[i].timeInSystem = c[i].endTime   - c[i].arrivalTime;
- 
-        totalWait      += c[i].waitTime;
-        totalInSystem  += c[i].timeInSystem;
-        totalService   += c[i].serviceTime;
-        totalIdle      += c[i].idleTime;
- 
-        prevEnd = c[i].endTime;
+
+int main() {
+    int n ;
+    Customer c[MAX_CUSTOMERS];
+
+    int prev_arrival = 0, prev_completion = 0;
+    double total_wait = 0, total_tat = 0, total_service = 0;
+    int total_idle = 0;
+    printf("Enter number of customers (1-%d): ", MAX_CUSTOMERS);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_CUSTOMERS) {
+        printf("Invalid number of customers.\n");
+        return 1;
     }
- 
-    int totalSimTime = prevEnd; /* simulation ends when last customer leaves */
- 
-    /* ── Print simulation table ── */
-    printf(" \nSingle Server Queue Simulation  (20 Customers)\n");
-    printf("\n%-5s %-8s %-8s %-8s %-8s %-8s %-8s %-8s %-8s\n",
-           "Cust", "Inter", "Arrival", "Ser.", "Ser.", "Ser.", "Wait", "T.Spent", "Idle");
-    printf("%-5s %-8s %-8s %-8s %-8s %-8s %-8s %-8s %-8s\n",
-           "No.",  "Arriv","Time",    "Time", "Begin","End",   "Time", "in Sys", "Time");
-    printf("-----------------------------------------------------------------------------------\n");
- 
-    for (int i = 0; i < NUM_CUSTOMERS; i++) {
-        printf("%-5d %-8d %-8d %-8d %-8d %-8d %-8d %-8d %-8d\n",
+
+
+    printf("Enter Inter Arrival Time and Service Time:\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("\nCustomer %d\n", i + 1);
+
+        printf("Inter Arrival Time: ");
+        scanf("%d", &c[i].iat);
+
+        printf("Service Time: ");
+        scanf("%d", &c[i].st);
+
+        c[i].at = prev_arrival + c[i].iat;
+        c[i].start = (c[i].at > prev_completion) ? c[i].at : prev_completion;
+        c[i].idle = c[i].start - prev_completion;
+        c[i].ct = c[i].start + c[i].st;
+        c[i].wt = c[i].start - c[i].at;
+        c[i].tat = c[i].ct - c[i].at;
+
+        total_wait += c[i].wt;
+        total_tat += c[i].tat;
+        total_service += c[i].st;
+        total_idle += c[i].idle;
+
+        prev_arrival = c[i].at;
+        prev_completion = c[i].ct;
+    }
+
+    int total_time = prev_completion;
+
+    double avg_wait = total_wait / n;
+    double avg_tat = total_tat / n;
+    double avg_service = total_service / n;
+    double utilization = (total_service / total_time) * 100.0;
+    double idle_percent = ((double)total_idle / total_time) * 100.0;
+
+    printf("\nSingle Server Queue Simulation (%d Customers)\n\n", n);
+
+    printf("%-5s %-15s %-15s %-15s %-15s %-15s %-12s %-15s %-12s\n",
+           "Cust", "InterArrival", "ArrivalTime", "ServiceTime",
+           "StartTime", "EndTime", "WaitTime", "TimeInSystem", "IdleTime");
+
+
+    for (int i = 0; i < n; i++) {
+        printf("%-5d %-15d %-15d %-15d %-15d %-15d %-12d %-15d %-12d\n",
                i + 1,
-               c[i].interArrival,
-               c[i].arrivalTime,
-               c[i].serviceTime,
-               c[i].startTime,
-               c[i].endTime,
-               c[i].waitTime,
-               c[i].timeInSystem,
-               c[i].idleTime);
+               c[i].iat,
+               c[i].at,
+               c[i].st,
+               c[i].start,
+               c[i].ct,
+               c[i].wt,
+               c[i].tat,
+               c[i].idle);
     }
- 
-    /* ── Performance statistics ── */
-    double avgWait        = (double)totalWait       / NUM_CUSTOMERS;
-    double avgInSystem    = (double)totalInSystem   / NUM_CUSTOMERS;
-    double avgService     = (double)totalService    / NUM_CUSTOMERS;
-    double utilization    = ((double)(totalSimTime - totalIdle) / totalSimTime) * 100.0;
-    double idlePct        = ((double)totalIdle / totalSimTime) * 100.0;
- 
-    printf("\n  Performance Metrics\n");
-    printf("  -------------------\n");
-    printf("  Average Wait Time              : %.2f min\n", avgWait);
-    printf("  Average Time Spent in System   : %.2f min\n", avgInSystem);
-    printf("  Average Service Time           : %.2f min\n", avgService);
-    printf("  Server Utilization             : %.2f %%\n",  utilization);
-    printf("  Total Idle Time                : %d min (%.2f %%)\n", totalIdle, idlePct);
-    printf("  Total Simulation Time          : %d min\n",  totalSimTime);
- 
+
+    printf("\n--- Results ---\n");
+    printf("Average Waiting Time        = %.2lf\n", avg_wait);
+    printf("Average Time in System      = %.2lf\n", avg_tat);
+    printf("Average Service Time        = %.2lf\n", avg_service);
+    printf("Server Utilization          = %.2lf%%\n", utilization);
+    printf("Total Idle Time             = %d\n", total_idle);
+    printf("Idle Time Percentage        = %.2lf%%\n", idle_percent);
+
     return 0;
 }

@@ -30,7 +30,7 @@ void multiplyVector(float P[2], float T[2][2], float result[2]) {
 
 int main() {
     float T[2][2];
-    printf("\nEnter the 2x2 transition matrix (row-wise, separated by spaces):\n");
+    printf("\nEnter the 2x2 transition matrix :\n");
     for(int i=0;i<2;i++)
         for(int j=0;j<2;j++)
             printf("T[%d][%d]: ", i, j),
