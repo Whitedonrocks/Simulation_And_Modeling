@@ -40,7 +40,7 @@ int main() {
     float Dplus_max = 0.0, Dminus_max = 0.0, D, Dalpha;
 
     // Step 1: Input number of random numbers
-    printf("Enter number of random numbers (N): ");
+    printf("\nEnter number of random numbers (N): ");
     scanf("%d", &N);
 
     // Step 2: Input random numbers

@@ -24,7 +24,7 @@ int main() {
     int prev_arrival = 0, prev_completion = 0;
     double total_wait = 0, total_tat = 0, total_service = 0;
     int total_idle = 0;
-    printf("Enter number of customers (1-%d): ", MAX_CUSTOMERS);
+    printf("\nEnter number of customers (1-%d): ", MAX_CUSTOMERS);
     if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_CUSTOMERS) {
         printf("Invalid number of customers.\n");
         return 1;

@@ -10,7 +10,7 @@ int main() {
     int k, i, j;
 
     /* LCM Parameters */
-    printf("=== Linear Congruential Method ===\n");
+    printf("\n=== Linear Congruential Method ===\n");
     printf("Formula: X(n+1) = (a * Xn + c) %% m\n\n");
     printf("Enter multiplier (a): ");
     scanf("%ld", &a);

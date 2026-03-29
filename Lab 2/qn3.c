@@ -34,7 +34,7 @@ int main()
             return 1;
     }
 
-    for(i=1;i<=n;i++)
+    for(i=1;i<n;i++)
     {
         switch(choice) {
             case 1: // Additive
@@ -48,17 +48,19 @@ int main()
                 break;
         }
     }
-    
+
     printf("\nThe generated random numbers are:\n");
-    for(i=0;i<=n;i++)
+    int cycle_length = 0;
+    for(i=0;i<n;i++)
     {
         printf("%d ",R[i]);
-        if(R[i+1]==R[0])
+        if(i > 0 && R[i] == R[0] && cycle_length == 0)
         {
-            printf("\nCycle length is: %d\n",i+1);
-            break;
+            cycle_length = i;
         }
     }
+    if(cycle_length > 0)
+        printf("\nCycle length is: %d\n", cycle_length);
     printf("\n");
     return 0;
 }

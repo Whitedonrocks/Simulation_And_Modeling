@@ -45,7 +45,7 @@ int main() {
     int total_idle = 0;
 
     int min_wt, max_wt;
-    printf("Enter number of customers (1-%d): ", MAX_CUSTOMERS);
+    printf("\nEnter number of customers (1-%d): ", MAX_CUSTOMERS);
     if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_CUSTOMERS) {
         printf("Invalid number of customers.\n");
         return 1;

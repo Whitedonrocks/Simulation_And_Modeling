@@ -6,7 +6,7 @@
  {
      int j,count=0, limit, i=0,head, tail;
      float y, answer, h=2.5;
-        printf("Enter the number of iterations: ");
+        printf("\nEnter the number of iterations: ");
         scanf("%d", &limit);
         while(i<=limit)
         {

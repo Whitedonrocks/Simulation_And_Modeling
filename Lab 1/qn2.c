@@ -13,7 +13,7 @@ int main() {
     double pi[100], error[100];
     double trueValueOfPI = 3.141592;
 
-    printf("Enter number of different iteration inputs: ");
+    printf("\nEnter number of different iteration inputs: ");
     scanf("%d", &n);
 
     for(i = 0; i < n; i++) {

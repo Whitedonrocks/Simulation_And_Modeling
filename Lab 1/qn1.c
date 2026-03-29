@@ -29,7 +29,7 @@ int main() {
     double pi, error;
     double trueValueOfPI = 3.141592;
 
-    printf("Enter number of iterations: ");
+    printf("\nEnter number of iterations: ");
     scanf("%d", &iterations);
 
     srand(SEED);

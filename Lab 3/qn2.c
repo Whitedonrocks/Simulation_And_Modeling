@@ -14,7 +14,7 @@ int main() {
 
     srand(time(0));
 
-    printf("100 Generated Random Numbers:\n");
+    printf("\n100 Generated Random Numbers:\n");
     for (i = 0; i < n; i++) {
         nums[i] = (float)rand() / RAND_MAX;
         printf("%.4f    ", nums[i]);
